@@ -24,17 +24,17 @@ export class UtilsService {
   }
 
   //Enrutamiento
-  routerLink(url: string){
+  routerLink(url: string) {
     return this.router.navigateByUrl(url);
   }
 
   //Guarda un elemento en localstorage
-  saveInLocalStorage(key: string, value: any){
+  saveInLocalStorage(key: string, value: any) {
     return localStorage.setItem(key, JSON.stringify(value));
   }
 
   //Obtiene un elemento desde localstorage
-  getFromLocalStorage(key: string){
+  getFromLocalStorage(key: string) {
     return JSON.parse(localStorage.getItem(key));
   }
 
@@ -42,8 +42,14 @@ export class UtilsService {
   //Modal
   async presentModal(opts: ModalOptions) {
     const modal = await this.modalCtrl.create(opts);
-
     await modal.present();
 
+    const { data } = await modal.onWillDismiss();
+    if (data) return data;
   }
+
+  dismissModal(data?: any) {
+    return this.modalCtrl.dismiss(data);
+  }
+
 }
