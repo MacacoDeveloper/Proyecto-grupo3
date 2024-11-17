@@ -13,6 +13,9 @@
       Tomar/Seleccionar una imagen
     </ion-button>
 
+    <!-- Si no existe una imagen -->
+    <ion-icon *ngIf="!form.value.image" name="image-outline"></ion-icon>
+
     <!-- NAME -->
     <app-custom-input autocomplete="name" [control]="form.controls.name" type="text" label="Nombre">
     </app-custom-input>
