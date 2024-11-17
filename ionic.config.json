@@ -1,0 +1,7 @@
+{
+  "name": "rukito",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
