@@ -1,5 +1,26 @@
-import { CanActivateFn } from '@angular/router';
+import { inject, Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { FirebaseService } from '../services/firebase.service';
+import { UtilsService } from '../services/utils.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  return true;
-};
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGuard implements CanActivate {
+
+
+  firebaseSvc = inject(FirebaseService);
+  utilsSvc = inject(UtilsService);
+
+
+
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    // Lógica para verificar si se puede activar la ruta
+    return true; // Cambia esto según tus necesidades
+  }
+}
