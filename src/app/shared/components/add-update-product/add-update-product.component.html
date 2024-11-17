@@ -4,6 +4,10 @@
   <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
 
+<ion-button (click)="takeImage()" expand="block" fill="clear" shape="round">
+  Click me
+</ion-button>
+
        <!-- NAME -->
     <app-custom-input
       autocomplete="name"

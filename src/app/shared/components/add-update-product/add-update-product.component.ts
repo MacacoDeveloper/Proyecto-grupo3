@@ -29,6 +29,7 @@ form = new FormGroup({
 // Tomar / Selecionar imagen
  async takeImage() {
   const dataUrl = (await this.utilsSvc.takePicture('Imagen del Producto')).dataUrl;
+  this.form.controls.image.setValue(dataUrl);
   }
 
 
