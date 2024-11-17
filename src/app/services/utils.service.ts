@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoadingController, ToastController, ToastOptions } from '@ionic/angular';
+import { LoadingController, ModalController, ModalOptions, ToastController, ToastOptions } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +9,7 @@ export class UtilsService {
 
   loadingCtrl = inject(LoadingController);
   toastCtrl = inject(ToastController);
+  modalCtrl = inject(ModalController);
   router = inject(Router);
 
   //Loading
@@ -35,5 +36,14 @@ export class UtilsService {
   //Obtiene un elemento desde localstorage
   getFromLocalStorage(key: string){
     return JSON.parse(localStorage.getItem(key));
+  }
+
+
+  //Modal
+  async presentModal(opts: ModalOptions) {
+    const modal = await this.modalCtrl.create(opts);
+
+    await modal.present();
+
   }
 }
