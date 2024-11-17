@@ -21,11 +21,16 @@ form = new FormGroup({
   })
 
   firebaseSvc = inject(FirebaseService);
-
   utilsSvc = inject(UtilsService)
 
   ngOnInit() {
   }
+
+// Tomar / Selecionar imagen
+ async takeImage() {
+  const dataUrl = (await this.utilsSvc.takePicture('Imagen del Producto')).dataUrl;
+  }
+
 
   async submit() {
     if (this.form.valid) {
