@@ -26,7 +26,7 @@
 
     <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
       <div *ngIf="form.controls.name.errors?.['required']">Este campo es requerido</div>
-      <div *ngIf="form.controls.name.errors?.['min']">El nombre debe de tener al menos 4 caracteres</div>
+      <div *ngIf="form.controls.name.errors?.['min']">El precio mínimo debe ser 0</div>
     </div>
 
       <ion-button mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid">
