@@ -23,7 +23,10 @@ form = new FormGroup({
   firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService)
 
+  user = {} as User;
+
   ngOnInit() {
+    this.user = this.utilsSvc.getFromLocalStorage('user');
   }
 
 // Tomar / Selecionar imagen
