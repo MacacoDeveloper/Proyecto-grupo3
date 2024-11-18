@@ -39,17 +39,21 @@ form = new FormGroup({
   async submit() {
     if (this.form.valid) {
 
+      let path = `users/${this.user.uid}/products`
+
       const loading = await this.utilsSvc.loading();
       await loading.present();
+
+// Subir la imagen y obtener la url
+      let dataUrl = this.form.value.image;
+      let imagePath = `${this.user.uid}/${Date.now()}`;
+      let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl)
 
       this.firebaseSvc.signUp(this.form.value as User).then(async res => {
 
         await this.firebaseSvc.updateUser(this.form.value.name);
 
         let uid = res.user.uid;
-
-
-
 
       }).catch(error => {
         console.log(error);
