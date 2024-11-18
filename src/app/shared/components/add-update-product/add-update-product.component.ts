@@ -48,22 +48,20 @@ form = new FormGroup({
       let dataUrl = this.form.value.image;
       let imagePath = `${this.user.uid}/${Date.now()}`;
       let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl)
+      this.form.controls.image.setValue(imageUrl);
 
-      this.firebaseSvc.signUp(this.form.value as User).then(async res => {
+      delete this.form.value.id
 
-        await this.firebaseSvc.updateUser(this.form.value.name);
+      this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
 
-        let uid = res.user.uid;
-
-      }).catch(error => {
-        console.log(error);
+        this.utilsSvc.dismissModal({  success: true })
 
         this.utilsSvc.presentToast({
-          message: error.message,
-          duration: 2500,
-          color: 'primary',
+          message: 'Producto creado existosamente',
+          duration: 1500,
+          color: 'success',
           position: 'middle',
-          icon: 'alert-circle-outline'
+          icon: 'checkmark-circle-outline'
         });
 
       }).finally(() => {
