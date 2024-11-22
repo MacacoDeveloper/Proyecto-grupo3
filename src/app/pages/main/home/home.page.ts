@@ -22,6 +22,7 @@ export class HomePage implements OnInit {
     this.firebaseSvc.singOut();
   }
 
+
   //Agregar o actualizar producto
   addUpdateProduct() {
     this.utilsSvc.presentModal({
