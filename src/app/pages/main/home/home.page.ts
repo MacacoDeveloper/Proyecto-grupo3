@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Product } from 'src/app/models/products.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -14,7 +15,7 @@ export class HomePage implements OnInit {
   firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService);
 
-  products: any[] = [];
+  products: Product[] = [];
 
   ngOnInit() {
   }
@@ -39,6 +40,7 @@ export class HomePage implements OnInit {
     let sub = this.firebaseSvc.getCollectionData(path).subscribe({
       next: (res: any) => {
         console.log(res);
+        this.products = res;
         sub.unsubscribe();
       }
     })

@@ -2,7 +2,23 @@
 
 <ion-content>
 
+<ion-list>
+  <ion-item-sliding class="prodcut-item" *ngFor="let p of products">
+    <ion-item>
+      <ion-avatar>
+        <img [src]="p.image" />
+      </ion-avatar>
+      <ion-label>
+        <div class="name"> {{p.name}} </div>
+      </ion-label>
+    </ion-item>
+    <ion-item-options side="start">
 
+    </ion-item-options>
+
+
+  </ion-item-sliding>
+</ion-list>
 
   <!--//Nuevo producto-->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
