@@ -56,8 +56,8 @@ export class FirebaseService {
 
   // Obtener documentos de una colección
   getCollectionData(path: string, collectionQuery?: any) {
-    const ref = collection(getFirestore(), path)
-    return collectionData(query(ref, collectionQuery))
+    const ref = collection(getFirestore(), path);
+    return collectionData(query(ref, collectionQuery));
   }
 
 
