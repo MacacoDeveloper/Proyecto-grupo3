@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RouteConfigLoadEnd } from '@angular/router';
+import { Product } from 'src/app/models/products.model';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -11,6 +12,8 @@ import { UtilsService } from 'src/app/services/utils.service';
   styleUrls: ['./add-update-product.component.scss'],
 })
 export class AddUpdateProductComponent  implements OnInit {
+
+  @Input() product: Product;
 
 form = new FormGroup({
     id: new FormControl(''),
@@ -36,8 +39,17 @@ form = new FormGroup({
   }
 
 
-  async submit() {
-    if (this.form.valid) {
+
+  submit(){
+    if (this.form.valid){
+      if(this.product) this.updateProduct();
+      else this.createProduct()
+    }
+  }
+
+   // Crear producto
+  async createProduct() {
+
 
       let path = `users/${this.user.uid}/products`
 
@@ -67,8 +79,47 @@ form = new FormGroup({
       }).finally(() => {
         loading.dismiss();
       })
-    }
+
   }
+
+  // Actualizar producto
+  async updateProduct() {
+
+
+      let path = `users/${this.user.uid}/products/${this.product.id}`
+
+      const loading = await this.utilsSvc.loading();
+      await loading.present();
+
+// Subir la imagen y obtener la url
+      if(this.form.value.image !== this.product.image) {
+      let dataUrl = this.form.value.image;
+      let imagePath = `${this.user.uid}/${Date.now()}`;
+      let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl)
+      this.form.controls.image.setValue(imageUrl);
+      }
+
+
+      delete this.form.value.id
+
+      this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
+
+        this.utilsSvc.dismissModal({  success: true })
+
+        this.utilsSvc.presentToast({
+          message: 'Producto creado existosamente',
+          duration: 1500,
+          color: 'success',
+          position: 'middle',
+          icon: 'checkmark-circle-outline'
+        });
+
+      }).finally(() => {
+        loading.dismiss();
+      })
+
+  }
+
 
 
 }
