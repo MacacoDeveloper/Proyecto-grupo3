@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree  |  boolean  | UrlTree  > {
     // Lógica para verificar si se puede activar la ruta
 
     let user = localStorage.getItem('user');
@@ -26,7 +26,8 @@ export class AuthGuard implements CanActivate {
         if (auth) {
           if (user) resolve(true);
         } else {
-          this.utilsSvc.routerLink('/auth'); resolve(false);
+          this.firebaseSvc.singOut()
+          resolve(false);
         }
       })
     });

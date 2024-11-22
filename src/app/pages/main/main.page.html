@@ -1,4 +1,4 @@
-<ion-menu contentId="menu-content" menuId="menu-content" side="start" >
+<ion-menu contentId="menu-content" menuId="menu-content" side="start">
   <ion-header>
     <ion-toolbar>
       <ion-title>Awesome avocado menu</ion-title>
@@ -6,7 +6,7 @@
   </ion-header>
   <ion-content>
 
-    <ion-menu-toggle autoHide="false" *ngFor="let p of pages">
+    <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
       <ion-item [routerLink]="p.url" routerDirection="root" detail>
         <ion-icon slot="start" [name]="p.icon"></ion-icon>
         <ion-label> {{p.title}} </ion-label>
