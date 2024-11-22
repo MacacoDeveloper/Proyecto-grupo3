@@ -11,8 +11,8 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class MainPage implements OnInit {
 
   pages = [
-  { title : 'Inicio', url: '/main/home', icon: 'home-outline'},
-  { title : 'Perfil', url: '/main/profile', icon: 'person-outline'},
+    { title: 'Inicio', url: '/main/home', icon: 'home-outline' },
+    { title: 'Perfil', url: '/main/profile', icon: 'person-outline' },
   ]
 
   firebaseSvc = inject(FirebaseService);
@@ -22,7 +22,7 @@ export class MainPage implements OnInit {
 
   ngOnInit() {
     this.router.events.subscribe((event: any) => {
-      if(event?.url) this.currentPath = event.url;
+      if (event?.url) this.currentPath = event.url;
     })
   }
 

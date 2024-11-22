@@ -17,7 +17,7 @@
 
   <ion-footer class="ion-no-border safe-p-botton">
     <ion-menu-toggle auto-hide="false" >
-      <ion-item lines="none">
+      <ion-item (click)=" singOut()" lines="none">
         <ion-icon slot="start" name="log-out-outline"></ion-icon>
         <ion-label> Cerrar sesión </ion-label>
       </ion-item>
