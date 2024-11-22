@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-main',
@@ -13,6 +15,8 @@ export class MainPage implements OnInit {
   { title : 'Perfil', url: '/main/profile', icon: 'person-outline'},
   ]
 
+  firebaseSvc = inject(FirebaseService);
+  utilsSvc = inject(UtilsService);
   router = inject(Router);
   currentPath: string = '';
 
@@ -21,5 +25,11 @@ export class MainPage implements OnInit {
       if(event?.url) this.currentPath = event.url;
     })
   }
+
+  //Cerrar sesión
+  singOut() {
+    this.firebaseSvc.singOut();
+  }
+
 
 }
