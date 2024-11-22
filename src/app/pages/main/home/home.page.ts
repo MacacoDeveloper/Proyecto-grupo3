@@ -14,6 +14,8 @@ export class HomePage implements OnInit {
   firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService);
 
+  products: any[] = [];
+
   ngOnInit() {
   }
 
@@ -27,6 +29,9 @@ export class HomePage implements OnInit {
     return this.utilsSvc.getFromLocalStorage('user');
   }
 
+  ionViewWillEnter() {
+    this.getProducts();
+  }
   // Obtener Productos
   getProducts() {
     let path = `users/${this.user().uid}/products`;
