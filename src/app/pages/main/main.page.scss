@@ -3,29 +3,27 @@ ion-content {
   --color: var(--ion-color-primary-contrast);
   --padding-top: 20px;
 }
-
 ion-item{
   font-size: 14px;
-
   &.active {
     color: var(--ion-color-warning);
-
-
   ion-icon {
     color: var(--ion-color-warning);
   }
   }
-
 }
-
 .pointer-cursor {
   cursor: pointer; /* Cambia el cursor a puntero */
   user-select: none; /* Evita que el texto sea seleccionable */
 }
-
 h4{
   font-weight: bold;
 }
-.avatar-icon{
+ion-avatar{
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+.empty-icon{
   font-size: 100px;
 }
