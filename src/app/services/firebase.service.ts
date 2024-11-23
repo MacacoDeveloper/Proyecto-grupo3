@@ -104,6 +104,7 @@ export class FirebaseService {
 
   //Eliminar archivo
   deleteFile(path: string  ) {
+    return deleteObject(ref(getStorage(), path));
 
   }
 
