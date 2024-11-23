@@ -47,11 +47,13 @@ form = new FormGroup({
     }
   }
 
+
+
    // Crear producto
   async createProduct() {
 
 
-      let path = `users/${this.user.uid}/products`
+      let path = `users/${this.user.uid}/products/${this.product.id}`
 
       const loading = await this.utilsSvc.loading();
       await loading.present();
@@ -117,10 +119,6 @@ form = new FormGroup({
       }).finally(() => {
         loading.dismiss();
       })
-
   }
-
-
-
 }
 
