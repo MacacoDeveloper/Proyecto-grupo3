@@ -47,12 +47,54 @@ export class HomePage implements OnInit {
   }
 
   //Agregar o actualizar producto
-  addUpdateProduct(product?: Product) {
-    this.utilsSvc.presentModal({
+  async  addUpdateProduct(product?: Product) {
+
+    let success = await this.utilsSvc.presentModal({
       component: AddUpdateProductComponent,
       cssClass: 'add.update-modal',
       componentProps: { product }
     })
+
+    if (success) this.getProducts();
+  }
+
+
+  // Actualizar producto
+  async deleteProduct(product: Product) {
+
+
+    let path = `users/${this.user().uid}/products/${product.id}`
+
+    const loading = await this.utilsSvc.loading();
+    await loading.present();
+
+    let imagePath = await this.firebaseSvc.getFilePath(product.image);
+
+    this.firebaseSvc.deleteDocument(path).then(async res => {
+
+      this.utilsSvc.presentToast({
+        message: 'Producto eliminado existosamente',
+        duration: 1500,
+        color: 'success',
+        position: 'middle',
+        icon: 'checkmark-circle-outline'
+      })
+
+    }).catch(error => {
+      console.log(error);
+
+      this.utilsSvc.presentToast({
+        message: error.message,
+        duration: 2500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'alert-circle-outline'
+      })
+
+    }).finally(() => {
+      loading.dismiss();
+    })
+
   }
 
 

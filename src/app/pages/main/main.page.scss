@@ -17,3 +17,8 @@ ion-item{
   }
 
 }
+
+.pointer-cursor {
+  cursor: pointer; /* Cambia el cursor a puntero */
+  user-select: none; /* Evita que el texto sea seleccionable */
+}
