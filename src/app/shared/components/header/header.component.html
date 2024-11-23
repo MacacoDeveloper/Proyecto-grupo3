@@ -1,5 +1,5 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
+<ion-header class="d-flex-center">
+  <ion-toolbar color="azul">
 
     <ion-buttons slot="start">
       <!--Back Button-->
@@ -12,12 +12,12 @@
     </ion-buttons>
 
 
-  <ion-menu-button *ngIf="showMenu" menu="menu-content"></ion-menu-button>
+    <ion-menu-button *ngIf="showMenu" menu="menu-content" slot="start"></ion-menu-button>
 
 
     <ion-title>
       <strong>{{title}}</strong>
-      <div class="admin">A D M I N</div>
+      <div class="admin"></div>
     </ion-title>
   </ion-toolbar>
 </ion-header>

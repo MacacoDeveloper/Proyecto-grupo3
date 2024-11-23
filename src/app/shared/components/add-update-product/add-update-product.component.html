@@ -10,18 +10,18 @@
 
 
     <!-- Si no existe una imagen -->
-    <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
+    <ion-icon class="image-icon" *ngIf="!form.value.image" name="camera-outline"></ion-icon>
 
 
     <br>
     <!-- Tomar/Seleccionar una imagen -->
-    <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+    <ion-button (click)="takeImage()" mode="ios" size="small" shape="round" color="azul">
       Tomar/Seleccionar
     </ion-button>
 
 
     <!-- NAME -->
-    <app-custom-input autocomplete="name" [control]="form.controls.name" type="text" label="Nombre">
+    <app-custom-input autocomplete="name" [control]="form.controls.name" type="text" label="Nombre:">
     </app-custom-input>
 
     <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Precio   -->
-    <app-custom-input [control]="form.controls.price" type="number" label="Precio">
+    <app-custom-input [control]="form.controls.price" type="number" label="Precio:">
     </app-custom-input>
 
     <div class="validators" *ngIf="form.controls.price.errors && form.controls.price.touched">
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Sold Units   -->
-    <app-custom-input [control]="form.controls.soldUnits" type="number" label="Unidades Vendidas">
+    <app-custom-input [control]="form.controls.soldUnits" type="number" label="Unidades Vendidas:">
     </app-custom-input>
 
     <div class="validators" *ngIf="form.controls.soldUnits.errors && form.controls.soldUnits.touched">
@@ -49,9 +49,9 @@
 
 
 
-    <ion-button mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid">
+    <ion-button mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid" color="azul">
       Agregar Producto
-      <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+      <ion-icon name="add-circle-outline" slot="end"></ion-icon>
     </ion-button>
   </form>
 

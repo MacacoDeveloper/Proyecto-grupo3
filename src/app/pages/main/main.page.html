@@ -2,14 +2,14 @@
 
   <app-header title="Menú"></app-header>
 
-  <ion-content>
+  <ion-content color="azul">
 
     <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-      <ion-item [ngClass]="{'active': currentPath === p.url}" [routerLink]="p.url" routerDirection="root" detail>
-        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+
+      <ion-item [ngClass]="{'active': currentPath === p.url}" [routerLink]="p.url" routerDirection="root" detail color="azul">
+        <ion-icon slot="start" [name]="p.icon" color="light"></ion-icon>
         <ion-label> {{p.title}} </ion-label>
       </ion-item>
-
 
     </ion-menu-toggle>
 
@@ -17,11 +17,10 @@
 
   <ion-footer class="ion-no-border safe-p-botton">
     <ion-menu-toggle auto-hide="false" >
-      <ion-item (click)=" singOut()" lines="none">
-        <ion-icon slot="start" name="log-out-outline"></ion-icon>
-        <ion-label> Cerrar sesión </ion-label>
+      <ion-item (click)=" singOut()" lines="none"  color="azul">
+        <ion-icon slot="end" name="log-out-outline"></ion-icon>
+        <ion-label slot="end"> Cerrar sesión </ion-label>
       </ion-item>
-
 
     </ion-menu-toggle>
   </ion-footer>

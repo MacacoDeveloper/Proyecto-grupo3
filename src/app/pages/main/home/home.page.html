@@ -2,45 +2,45 @@
 
 <ion-content>
 
-<ion-list>
-  <ion-item-sliding class="prodcut-item" *ngFor="let p of products">
-    <ion-item>
-      <ion-avatar slot="start">
-        <img [src]="p.image" />
-      </ion-avatar>
-      <ion-label>
-        <div class="name"> {{p.name}} </div>
-        <div class="data">
-        <strong>Prcio:</strong>  {{p.price | currency: 'USD'}} <br>
-        <strong>Unidades Vendidas:</strong> {{p.soldUnits}}
-       </div>
+  <ion-list>
+    <ion-item-sliding class="product-item" *ngFor="let p of products">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img [src]="p.image" />
+        </ion-avatar>
+        <ion-label>
+          <div class="name"> {{p.name}} </div>
+          <div class="data">
+            <strong>Precio:</strong> {{p.price | currency: 'USD'}} <br>
+            <strong>Unidades Vendidas:</strong> {{p.soldUnits}}
+          </div>
 
-       <ion-chip color="primary" mode="ios" outline="true">
-        <ion-label>Ganancia:  {{p.price * p.soldUnits | currency: 'USD'}}</ion-label>
-       </ion-chip>
-      </ion-label>
-    </ion-item>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>Ganancia: {{p.price * p.soldUnits | currency: 'USD'}}</ion-label>
+          </ion-chip>
+        </ion-label>
+      </ion-item>
 
-         <!-- Opciones -->>
-    <ion-item-options>
+      <!-- Opciones -->>
+      <ion-item-options>
         <!-- Editar -->>
-      <ion-item-option>
-        <ion-icon class="option-btn" name="create-outline"></ion-icon>
-      </ion-item-option>
-          <!-- Eliminar -->>
-      <ion-item-option color="danger">
-        <ion-icon  name="trash-outline"></ion-icon>
-      </ion-item-option>
+        <ion-item-option>
+          <ion-icon class="option-btn" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <!-- Eliminar -->>
+        <ion-item-option color="danger">
+          <ion-icon name="trash-outline"></ion-icon>
+        </ion-item-option>
 
-    </ion-item-options>
+      </ion-item-options>
 
 
-  </ion-item-sliding>
-</ion-list>
+    </ion-item-sliding>
+  </ion-list>
 
   <!--//Nuevo producto-->
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="addUpdateProduct()">
+    <ion-fab-button (click)="addUpdateProduct()" color="azul">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
