@@ -16,6 +16,7 @@ export class HomePage implements OnInit {
   utilsSvc = inject(UtilsService);
 
   products: Product[] = [];
+  loading: boolean = false;
 
   ngOnInit() {
   }
@@ -26,7 +27,7 @@ export class HomePage implements OnInit {
     this.firebaseSvc.singOut();
   }
 
-  user(): User{
+  user(): User {
     return this.utilsSvc.getFromLocalStorage('user');
   }
 
@@ -37,17 +38,22 @@ export class HomePage implements OnInit {
   getProducts() {
     let path = `users/${this.user().uid}/products`;
 
+    this.loading = true;
+
     let sub = this.firebaseSvc.getCollectionData(path).subscribe({
       next: (res: any) => {
         console.log(res);
         this.products = res;
+
+        this.loading = false;
+
         sub.unsubscribe();
       }
     })
   }
 
   //Agregar o actualizar producto
-  async  addUpdateProduct(product?: Product) {
+  async addUpdateProduct(product?: Product) {
 
     let success = await this.utilsSvc.presentModal({
       component: AddUpdateProductComponent,
@@ -56,6 +62,25 @@ export class HomePage implements OnInit {
     })
 
     if (success) this.getProducts();
+  }
+
+  //Confirmar eliminación del producto
+  async confirmDeleteProduct(product: Product) {
+    this.utilsSvc.presentAlert({
+      header: 'Eliminar producto',
+      message: '¿Quieres eliminar este producto?',
+      mode: 'ios',
+      buttons: [
+        {
+          text: 'Cancelar',
+        }, {
+          text: 'Okay',
+          handler: () => {
+            this.deleteProduct(product)
+          }
+        }
+      ]
+    });
   }
 
 
@@ -73,7 +98,7 @@ export class HomePage implements OnInit {
 
     this.firebaseSvc.deleteDocument(path).then(async res => {
 
-      this.products = this.products.filter(p => p.id !== product.id );
+      this.products = this.products.filter(p => p.id !== product.id);
 
       this.utilsSvc.presentToast({
         message: 'Producto eliminado existosamente',
