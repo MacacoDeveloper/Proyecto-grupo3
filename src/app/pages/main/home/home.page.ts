@@ -4,7 +4,7 @@ import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { AddUpdateProductComponent } from 'src/app/shared/components/add-update-product/add-update-product.component';
-import { orderBy } from 'firebase/firestore';
+import { orderBy, where } from 'firebase/firestore';
 
 
 @Component({
@@ -23,6 +23,12 @@ export class HomePage implements OnInit {
   ngOnInit() {
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getProducts();
+      event.target.complete();
+    }, 1000);
+  }
 
   //Cerrar sesión
   singOut() {
@@ -41,9 +47,10 @@ export class HomePage implements OnInit {
     let path = `users/${this.user().uid}/products`;
 
     this.loading = true;
-    let query = (
-      orderBy('soldUnits', 'desc')
-    )
+    let query = [
+      orderBy('soldUnits', 'desc'),
+      //where('soldUnits', '>', 30)
+    ]
 
     let sub = this.firebaseSvc.getCollectionData(path, query).subscribe({
       next: (res: any) => {
