@@ -24,7 +24,7 @@ export class AddUpdateProductComponent implements OnInit {
   })
 
   firebaseSvc = inject(FirebaseService);
-  utilsSvc = inject(UtilsService)
+  utilsSvc = inject(UtilsService);
 
   user = {} as User;
 

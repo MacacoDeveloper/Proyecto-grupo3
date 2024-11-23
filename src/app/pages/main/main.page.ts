@@ -35,6 +35,4 @@ export class MainPage implements OnInit {
   singOut() {
     this.firebaseSvc.singOut();
   }
-
-
 }
