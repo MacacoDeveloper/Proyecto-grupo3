@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from '@firebase/auth'
 import { User } from '../models/user.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getFirestore, setDoc, doc, getDoc, addDoc, collection, collectionData, query } from '@angular/fire/firestore';
+import { getFirestore, setDoc, doc, getDoc, addDoc, collection, collectionData, query, updateDoc } from '@angular/fire/firestore';
 import { UtilsService } from './utils.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { getStorage, uploadString, ref, getDownloadURL } from "firebase/storage";
@@ -61,9 +61,14 @@ export class FirebaseService {
   }
 
 
-  //Setear un documento
-  setDocument(path: string, data: any) {
+  //Actualizar un documento
+  updateDocument(path: string, data: any) {
     return setDoc(doc(getFirestore(), path), data);
+  }
+
+   //Setear un documento
+   setDocument(path: string, data: any) {
+    return updateDoc(doc(getFirestore(), path), data);
   }
 
   //Obtener un documento
@@ -78,14 +83,18 @@ export class FirebaseService {
   }
 
 
-  //Almecenamiento
+  //           Almecenamiento
 
   //Subir Imagen
   async uploadImage(path: string, data_url: string) {
     return uploadString(ref(getStorage(), path), data_url, 'data_url').then(() => {
       return getDownloadURL(ref(getStorage(), path))
     })
+  }
 
+  // Obtener ruta de la imagen con su url
+  async getFilePath(url: string) {
+    return ref(getStorage(), url).fullPath
   }
 
 }

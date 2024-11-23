@@ -11,11 +11,11 @@ import { UtilsService } from 'src/app/services/utils.service';
   templateUrl: './add-update-product.component.html',
   styleUrls: ['./add-update-product.component.scss'],
 })
-export class AddUpdateProductComponent  implements OnInit {
+export class AddUpdateProductComponent implements OnInit {
 
   @Input() product: Product;
 
-form = new FormGroup({
+  form = new FormGroup({
     id: new FormControl(''),
     image: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -32,55 +32,66 @@ form = new FormGroup({
     this.user = this.utilsSvc.getFromLocalStorage('user');
   }
 
-// Tomar / Selecionar imagen
- async takeImage() {
-  const dataUrl = (await this.utilsSvc.takePicture('Imagen del Producto')).dataUrl;
-  this.form.controls.image.setValue(dataUrl);
+  // Tomar / Selecionar imagen
+  async takeImage() {
+    const dataUrl = (await this.utilsSvc.takePicture('Imagen del Producto')).dataUrl;
+    this.form.controls.image.setValue(dataUrl);
   }
 
 
 
-  submit(){
-    if (this.form.valid){
-      if(this.product) this.updateProduct();
+  submit() {
+    if (this.form.valid) {
+      if (this.product) this.updateProduct();
       else this.createProduct()
     }
   }
 
 
 
-   // Crear producto
+  // Crear producto
   async createProduct() {
 
 
-      let path = `users/${this.user.uid}/products/${this.product.id}`
+    let path = `users/${this.user.uid}/products/${this.product.id}`
 
-      const loading = await this.utilsSvc.loading();
-      await loading.present();
+    const loading = await this.utilsSvc.loading();
+    await loading.present();
 
-// Subir la imagen y obtener la url
-      let dataUrl = this.form.value.image;
-      let imagePath = `${this.user.uid}/${Date.now()}`;
-      let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl)
-      this.form.controls.image.setValue(imageUrl);
+    // Subir la imagen y obtener la url
+    let dataUrl = this.form.value.image;
+    let imagePath = `${this.user.uid}/${Date.now()}`;
+    let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl)
+    this.form.controls.image.setValue(imageUrl);
 
-      delete this.form.value.id
+    delete this.form.value.id
 
-      this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
+    this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
 
-        this.utilsSvc.dismissModal({  success: true })
+      this.utilsSvc.dismissModal({ success: true })
 
-        this.utilsSvc.presentToast({
-          message: 'Producto creado existosamente',
-          duration: 1500,
-          color: 'success',
-          position: 'middle',
-          icon: 'checkmark-circle-outline'
-        });
-
-      }).finally(() => {
-        loading.dismiss();
+      this.utilsSvc.presentToast({
+        message: 'Producto creado existosamente',
+        duration: 1500,
+        color: 'success',
+        position: 'middle',
+        icon: 'checkmark-circle-outline'
       })
+
+    }).catch(error => {
+      console.log(error);
+
+      this.utilsSvc.presentToast({
+        message: error.message,
+        duration: 2500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'alert-circle-outline'
+      })
+
+    }).finally(() => {
+      loading.dismiss();
+    })
 
   }
 
@@ -88,37 +99,47 @@ form = new FormGroup({
   async updateProduct() {
 
 
-      let path = `users/${this.user.uid}/products/${this.product.id}`
+    let path = `users/${this.user.uid}/products/${this.product.id}`
 
-      const loading = await this.utilsSvc.loading();
-      await loading.present();
+    const loading = await this.utilsSvc.loading();
+    await loading.present();
 
-// Subir la imagen y obtener la url
-      if(this.form.value.image !== this.product.image) {
+    // Subir la imagen, subir la nueva y obtener la url
+    if (this.form.value.image !== this.product.image) {
       let dataUrl = this.form.value.image;
-      let imagePath = `${this.user.uid}/${Date.now()}`;
+      let imagePath = await this.firebaseSvc.getFilePath(this.product.image);
       let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl)
       this.form.controls.image.setValue(imageUrl);
-      }
+    }
+    delete this.form.value.id
 
+    this.firebaseSvc.updateDocument(path, this.form.value).then(async res => {
 
-      delete this.form.value.id
+      this.utilsSvc.dismissModal({ success: true })
 
-      this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
-
-        this.utilsSvc.dismissModal({  success: true })
-
-        this.utilsSvc.presentToast({
-          message: 'Producto creado existosamente',
-          duration: 1500,
-          color: 'success',
-          position: 'middle',
-          icon: 'checkmark-circle-outline'
-        });
-
-      }).finally(() => {
-        loading.dismiss();
+      this.utilsSvc.presentToast({
+        message: 'Producto actualizado existosamente',
+        duration: 1500,
+        color: 'success',
+        position: 'middle',
+        icon: 'checkmark-circle-outline'
       })
+
+    }).catch(error => {
+      console.log(error);
+
+      this.utilsSvc.presentToast({
+        message: error.message,
+        duration: 2500,
+        color: 'primary',
+        position: 'middle',
+        icon: 'alert-circle-outline'
+      })
+
+    }).finally(() => {
+      loading.dismiss();
+    })
+
   }
 }
 
