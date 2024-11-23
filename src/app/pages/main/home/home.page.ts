@@ -42,6 +42,14 @@ export class HomePage implements OnInit {
   ionViewWillEnter() {
     this.getProducts();
   }
+
+  // Obtener ganancias
+  getProfits() {
+    return this.products.reduce((index, product) => index + product.price * product.soldUnits, 0);
+  }
+
+
+
   // Obtener Productos
   getProducts() {
     let path = `users/${this.user().uid}/products`;

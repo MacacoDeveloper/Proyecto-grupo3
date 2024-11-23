@@ -4,6 +4,8 @@
 
   <ion-content color="azul">
 
+    <h4> {{user()?.name }} </h4>
+
     <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
 
       <ion-item [ngClass]="{'active': currentPath === p.url}" [routerLink]="p.url" routerDirection="root" detail color="azul">
