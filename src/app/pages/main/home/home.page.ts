@@ -59,7 +59,7 @@ export class HomePage implements OnInit {
   }
 
 
-  // Actualizar producto
+  // Eliminar producto
   async deleteProduct(product: Product) {
 
 
@@ -69,8 +69,11 @@ export class HomePage implements OnInit {
     await loading.present();
 
     let imagePath = await this.firebaseSvc.getFilePath(product.image);
+    await this.firebaseSvc.deleteFile(imagePath);
 
     this.firebaseSvc.deleteDocument(path).then(async res => {
+
+      this.products = this.products.filter(p => p.id !== product.id );
 
       this.utilsSvc.presentToast({
         message: 'Producto eliminado existosamente',
