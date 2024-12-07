@@ -27,3 +27,9 @@ ion-avatar{
 .empty-icon{
   font-size: 100px;
 }
+
+ion-menu{
+  --width: 254px;
+  --min-width: 254px;
+  outline: none;
+}
