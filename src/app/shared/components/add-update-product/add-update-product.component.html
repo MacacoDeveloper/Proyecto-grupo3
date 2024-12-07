@@ -10,7 +10,7 @@
 
 
     <!-- Si no existe una imagen -->
-    <ion-icon class="image-icon" *ngIf="!form.value.image" name="camera-outline"></ion-icon>
+    <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
 
 
     <br>
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Precio   -->
-    <app-custom-input [control]="form.controls.price" type="number" label="Precio:"
+    <app-custom-input [control]="form.controls.price" type="number" label="Precio: (USD):"
     (ionInput) = "setNumberInputs()"
     ></app-custom-input>
 
