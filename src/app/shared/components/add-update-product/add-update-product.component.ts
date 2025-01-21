@@ -78,7 +78,7 @@ export class AddUpdateProductComponent implements OnInit {
 
     this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
 
-      this.utilsSvc.dismissModal({ success: true })
+      this.utilsSvc.dismissModal({ success: true });
 
       this.utilsSvc.presentToast({
         message: 'Producto creado existosamente',
