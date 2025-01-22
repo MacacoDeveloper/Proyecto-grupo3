@@ -63,7 +63,7 @@ export class AddUpdateProductComponent implements OnInit {
   async createProduct() {
 
 
-    let path = `users/${this.user.uid}/products/${this.product.id}`
+    let path = `users/${this.user.uid}/products/`
 
     const loading = await this.utilsSvc.loading();
     await loading.present();
