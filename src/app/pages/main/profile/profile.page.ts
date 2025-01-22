@@ -29,7 +29,7 @@ firebaseSvc = inject(FirebaseService);
   // Tomar / Selecionar imagen
   async takeImage() {
     let user = this.user();
-    let path = `users/${user.uid}}`
+    let path = `users/${user.uid}`
 
 
     const dataUrl = (await this.utilsSvc.takePicture('Imagen del Perfil')).dataUrl;
@@ -37,7 +37,7 @@ firebaseSvc = inject(FirebaseService);
     const loading = await this.utilsSvc.loading();
     await loading.present();
 
-    let imagePath = `${user.uid}/profile}`;
+    let imagePath = `${user.uid}/profile`;
     user.image = await this.firebaseSvc.uploadImage(imagePath, dataUrl)
 
     this.firebaseSvc.updateDocument(path, { image: user.image } ).then(async res => {
